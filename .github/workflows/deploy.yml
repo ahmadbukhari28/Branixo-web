@@ -27,4 +27,4 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             sudo systemctl restart apache2
-          
+            sudo systemctl restart apache2 
