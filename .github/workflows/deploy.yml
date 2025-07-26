@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy to EC2
 
 on:
   push:
@@ -11,14 +11,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Copy files to EC2
+        uses: appleboy/scp-action@v0.1.7
         with:
-          path: .
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }} 
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          source: .
+          target: /var/www/html 
